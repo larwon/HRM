@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+.input_name {
+	font-size: 25px;
+	margin-top: 20px;
+}
+
+.top_btn {
+	text-align: right;
+	margin-bottom: 10px;
+	margin-right: 60px;
+}
+
+.input_btn {
+	background-color: white;
+	border: 1px solid lightgrey;
+	color: grey;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 7px;
+	height: 30px;
+}
+
+.infoTable {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+}
+
+table {
+	text-align: center;
+	border-collapse: separate;
+	border-spacing: 0 10px;
+}
+
+.inputbox {
+	width: 300px;
+	height: 30px;
+}
+
+.info-name {
+	width: 150px;
+}
+
+.info {
+	width: 300px;
+	height: 30px;
+	border: 1px solid lightgrey;
+	padding: 0px 5px 0px 5px;
+	vertical-align: middle;
+}
+
+.info-date {
+	width: 265px;
+	height: 30px;
+	border: 1px solid lightgrey;
+}
+
+.img-date {
+	padding-left: 5px;
+	margin-bottom: 1px;
+}
+
+.search_list>table {
+	width:1800px;
+	margin-left: auto;
+	margin-right: auto;
+	border : 1px solid black; border-collapse : collapse;
+}
+
+.search_list>table>thead {
+	background: #DDE7E7;
+	font-weight: bold;
+}
+.search_list>table>thead>tr {
+	height: 40px;
+}
+.search_list>table>thead>tr>th {
+	vertical-align: middle;
+	border : 1px solid black; border-collapse : collapse;
+}
+
+#insaList>tr:hover {
+	background-color: lightskyblue;
+}
+
+#insaList>tr>td {
+	vertical-align: middle;
+	border : 1px solid black; border-collapse : collapse;
+	padding: 20px 5px;
+	text-align: left;
+}
+
+.right {
+	width: 200px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#paging {
+	display: flex;
+	text-align: center;
+	margin: 10px;
+}
+
+#paging div {
+	width: 40px;
+	height: 20px;
+}
+
+#paging .go-page:hover {
+	cursor: pointer;
+}
+
+#paging .now-page {
+	color: black;
+	margin: 0 0;
+}
+
+#paging .disable {
+	color: black;
+}
+
+#update_btn {
+	border-radius: 5px;
+	background-color: black;
+	text-align: center;
+	color: white;
+	width: 2.5em;
+	padding: 1px;
+}

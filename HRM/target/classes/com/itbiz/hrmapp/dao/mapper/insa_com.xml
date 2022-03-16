@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.itbiz.hrmapp.dao.InsaComDao">
+	
+	<select id="jobList" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'job_check'
+	</select>
+	
+	<select id="gender" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'gender'
+	</select>
+	
+	<select id="position" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'position'
+	</select>
+	
+	<select id="dept" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'dept'
+	</select>
+	
+	<select id="joinGu" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'join_gu'
+	</select>
+	
+	<select id="rank" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'rank'
+	</select>
+	
+	<select id="inputCheck" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'input_check'
+	</select>
+	
+	<select id="armyCheck" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'army_check'
+	</select>
+	
+	<select id="armyType" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'army_type'
+	</select>
+	
+	<select id="classes" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'classes'
+	</select>
+	
+	<select id="kosa" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'kosa'
+	</select>
+	
+	<select id="kosaRank" resultType="com.itbiz.hrmapp.dto.InsaComDto">
+		SELECT *
+		  FROM INSA_COM
+		 WHERE GUBUN = 'kosa_rank'
+	</select>
+	
+</mapper>

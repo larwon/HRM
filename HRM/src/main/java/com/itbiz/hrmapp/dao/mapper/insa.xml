@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.itbiz.hrmapp.dao.InsaDao">
+		
+	<select id="sabun" resultType="int">
+		SELECT LAST_NUMBER 
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'INSA_SEQ'
+	</select>
+
+	<insert id="insaInput">
+		INSERT INTO
+		INSA (SABUN, NAME, ENG_NAME, ID, PWD, PHONE, HP, REG_NO, YEARS, EMAIL,
+		JOIN_GBN_CODE, SEX, ZIP, ADDR1, ADDR2, POS_GBN_CODE, DEPT_CODE, SALARY,
+		JOIN_TYPE, GART_LEVEL, PUT_YN, MIL_YN, MIL_TYPE, MIL_LEVEL, MIL_STARTDATE,
+		MIL_ENDDATE, KOSA_REG_YN, KOSA_CLASS_CODE, JOIN_DAY, RETIRE_DAY, 
+		CMP_REG_NO, CRM_NAME, CMP_REG_IMAGE, SELF_INTRO, CARRIER, PROFILE_IMAGE)
+		VALUES (INSA_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9},
+		#{param10}, #{param11}, #{param12}, #{param13}, #{param14}, #{param15}, #{param16}, #{param17},
+		#{param18}, #{param19}, #{param20}, #{param21}, #{param22}, #{param23}, #{param24},
+		#{param25}, #{param26}, #{param27}, #{param28}, #{param29},
+		#{param30}, #{param31}, #{param32}, #{param33}, #{param34}, #{param35})
+	</insert>
+	
+	<select id="login" resultType="com.itbiz.hrmapp.dto.InsaDto">
+		SELECT *
+		  FROM INSA
+		 WHERE SABUN = #{param1}
+		   AND PWD = #{param2}
+	</select>
+	
+	<select id="idCheck" resultType="com.itbiz.hrmapp.dto.InsaDto">
+		SELECT ID
+		  FROM INSA
+		 WHERE ID = #{param1}
+	</select>
+	
+	<select id="emailCheck" resultType="com.itbiz.hrmapp.dto.InsaDto">
+		SELECT EMAIL
+		  FROM INSA
+		 WHERE EMAIL = #{param2}
+	   AND NOT ID = #{param1}
+	</select>
+	
+	<update id="insaUpdate">
+		UPDATE INSA
+		   SET NAME = #{param2},
+		   	   ENG_NAME = #{param3},
+		       PHONE = #{param4},
+		       HP = #{param5},
+		       REG_NO = #{param6},
+		       YEARS = #{param7},
+		       EMAIL = #{param8},
+		       JOIN_GBN_CODE = #{param9},
+		       SEX = #{param10},
+		       ZIP = #{param11},
+		       ADDR1 = #{param12},
+		       ADDR2 = #{param13},
+		       POS_GBN_CODE = #{param14},
+		       DEPT_CODE = #{param15},
+		       SALARY = #{param16},
+		       JOIN_TYPE = #{param17},
+		       GART_LEVEL = #{param18},
+		       PUT_YN = #{param19},
+		       MIL_YN = #{param20},
+		       MIL_TYPE = #{param21},
+		       MIL_LEVEL = #{param22},
+		       MIL_STARTDATE = #{param23},
+		       MIL_ENDDATE = #{param24},
+		       KOSA_REG_YN = #{param25},
+		       KOSA_CLASS_CODE = #{param26},
+		       JOIN_DAY = #{param27},
+		       RETIRE_DAY = #{param28},
+		       CMP_REG_NO = #{param29},
+		       CRM_NAME = #{param30},
+		       CMP_REG_IMAGE = #{param31},
+		       SELF_INTRO = #{param32},
+		       CARRIER = #{param33},
+		       PROFILE_IMAGE = #{param34}
+		 WHERE SABUN = #{param1}
+	</update>
+	
+	<delete id="insaDelete" parameterType="int">
+		DELETE
+		  FROM INSA
+		 WHERE SABUN = #{param1}
+	</delete>
+	
+	<select id="insaProfile" resultType="com.itbiz.hrmapp.dto.InsaDto">
+		SELECT *
+		  FROM INSA
+		 WHERE SABUN = #{param1}
+	</select>
+	
+	<select id="insaList" parameterType="com.itbiz.hrmapp.dto.InsaDto" resultType="com.itbiz.hrmapp.dto.InsaDto">
+		SELECT B.*
+		  FROM (SELECT A.*, ROWNUM AS RN
+		  		  FROM (SELECT C.SABUN, C.NAME, C.REG_NO, C.HP, D.NAME AS pos_gbn_code, C.JOIN_DAY, C.RETIRE_DAY, E.NAME AS put_yn, C.SALARY
+		  		  		  FROM INSA C
+		  		  	LEFT JOIN INSA_COM D
+		  		  			ON C.POS_GBN_CODE = D.CODE
+		  		  	LEFT JOIN INSA_COM E
+							ON C.PUT_YN = E.CODE
+						 WHERE 
+						<if test="sabun != ''">
+						       C.SABUN = #{sabun} AND
+						</if>
+						       C.NAME LIKE '%' || #{name} || '%'
+						   AND NVL(C.JOIN_TYPE, ' ') LIKE '%' || #{join_type} || '%'
+						   AND NVL(C.PUT_YN, ' ') LIKE '%' || #{put_yn} || '%'
+						   AND NVL(C.POS_GBN_CODE, ' ') LIKE '%' || #{pos_gbn_code} || '%'
+						   AND NVL(C.JOIN_DAY, ' ') LIKE '%' || #{join_day} || '%'
+						   AND NVL(C.RETIRE_DAY, ' ') LIKE '%' || #{retire_day} || '%'
+						   AND NVL(C.JOIN_GBN_CODE, ' ') LIKE '%' || #{join_gbn_code} || '%'
+					  ORDER BY C.SABUN
+		  		  ) A
+		  ) B
+		 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<!-- 검색된 리스트만 가져오는 것 pageCount -->
+	<select id="pageCount" parameterType="com.itbiz.hrmapp.dto.InsaDto" resultType="int">
+		SELECT COUNT(*)
+		  FROM INSA
+		 WHERE 
+		<if test="sabun != ''">
+			   SABUN = #{sabun} AND
+		</if>
+		       NAME LIKE '%' || #{name} || '%'
+		   AND NVL(JOIN_TYPE, ' ') LIKE '%' || #{join_type} || '%'
+		   AND NVL(PUT_YN, ' ') LIKE '%' || #{put_yn} || '%'
+		   AND NVL(POS_GBN_CODE, ' ') LIKE '%' || #{pos_gbn_code} || '%'
+		   AND NVL(JOIN_DAY, ' ') LIKE '%' || #{join_day} || '%'
+		   AND NVL(RETIRE_DAY, ' ') LIKE '%' || #{retire_day} || '%'
+		   AND NVL(JOIN_GBN_CODE, ' ') LIKE '%' || #{join_gbn_code} || '%'
+	</select>
+	
+</mapper>
